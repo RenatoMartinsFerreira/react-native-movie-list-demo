@@ -1,9 +1,12 @@
-import React from 'react';
-
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
 import HomeScene from './screens/homeScene';
 
-const App: () => React$Node = () => {
-  return <HomeScene />;
-};
-
-export default App;
+export default function App() {
+  return (
+    <NavigationContainer>
+      <HomeScene />
+    </NavigationContainer>
+  );
+}
