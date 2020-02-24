@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {SafeAreaView, Text, TouchableOpacity} from 'react-native';
+import {SafeAreaView, Text, StatusBar} from 'react-native';
 import MovieListModel from 'webjumpMovieListApp/src/models/movieListModel';
 
-class HomeScene extends Component {
+class MyMoviesScene extends Component {
   constructor(props) {
     super({...props});
     this.state = {
@@ -17,15 +17,11 @@ class HomeScene extends Component {
     return (
       <>
         <SafeAreaView>
-          <Text>webjump movie List</Text>
-
-          <TouchableOpacity>
-            <Text>push</Text>
-          </TouchableOpacity>
+          <Text> Meus Filmes :D </Text>
         </SafeAreaView>
       </>
     );
   }
 }
 
-export default HomeScene;
+export default MyMoviesScene;
