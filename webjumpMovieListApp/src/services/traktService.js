@@ -7,4 +7,5 @@ export default class TraktService extends BaseHttpService {
 
   trendingList = () =>
     this.get('https://private-ca0de0-trakt.apiary-mock.com/movies/trending');
+  // this.get('https://api.trakt.tv/movies/trending');
 }

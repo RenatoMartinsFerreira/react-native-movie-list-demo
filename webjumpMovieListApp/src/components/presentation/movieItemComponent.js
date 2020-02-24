@@ -1,10 +1,14 @@
 import React from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 import PropTypes from 'prop-types';
-import {horizontalScale} from 'webjumpMovieListApp/src/commons/scaling';
+import {
+  horizontalScale,
+  fontScale,
+} from 'webjumpMovieListApp/src/commons/scaling';
 import colors from 'webjumpMovieListApp/src/commons/colors';
 import {GenericTextComponent} from 'webjumpMovieListApp/src/components/presentation';
-import Icon from 'react-native-vector-icons/FontAwesome';
+// import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'webjumpMovieListApp/src/commons/icon';
 
 import {verticalScale} from '../../commons/scaling';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -43,7 +47,7 @@ export const MovieItemComponent = ({
             <GenericTextComponent
               styleguideItem={GenericTextComponent.StyleguideItem.TINY}
               color={colors.redishOpaqueBlack}
-              text={`${movie.year} | ${movie.time}`}
+              text={`${movie.year}`}
             />
           </View>
           <TouchableOpacity
@@ -51,7 +55,11 @@ export const MovieItemComponent = ({
               onIconPress();
             }}
             style={styles.iconContainer}>
-            <Icon name="rocket" size={30} color={colors.awsomeRed} />
+            <Icon
+              name="favorite-border"
+              size={fontScale(30)}
+              color={colors.awsomeRed}
+            />
           </TouchableOpacity>
         </View>
         <View style={styles.descriptionContainer}>

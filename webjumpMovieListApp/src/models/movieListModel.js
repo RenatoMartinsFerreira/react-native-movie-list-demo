@@ -27,9 +27,6 @@ export default class MovieListModel {
         console.log('log', response.data);
         // resolve(new MovieListModel(this.type, response.data[0].movies)),
         const newMovieListModel = new MovieListModel(this.type, response.data);
-
-        console.log('newMovieListModel', newMovieListModel.movies);
-
         for (const key in newMovieListModel.movies) {
           if (newMovieListModel.movies.hasOwnProperty(key)) {
             const element = newMovieListModel.movies[key];
@@ -40,7 +37,11 @@ export default class MovieListModel {
               .movieData(element.movie.ids.tmdb)
               .then(tmdbData => {
                 console.log('fuck', newMovieListModel.movies);
-                newMovieListModel.movies[key].movie.uri = tmdbData.data.poster_path;
+                newMovieListModel.movies[key].movie.uri =
+                  tmdbData.data.poster_path;
+                newMovieListModel.movies[key].movie.description =
+                  tmdbData.data.overview;
+
                 newMovieListModel.movies.length - 1 == key
                   ? resolve(
                       new MovieListModel(this.type, newMovieListModel.movies),
