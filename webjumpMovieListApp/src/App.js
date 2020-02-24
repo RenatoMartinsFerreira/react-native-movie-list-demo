@@ -1,10 +1,11 @@
 import * as React from 'react';
-import {Text, View, SafeAreaView, StatusBar} from 'react-native';
+import {Text, View, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import colors from 'webjumpMovieListApp/src/commons/colors';
 import {createStackNavigator} from '@react-navigation/stack';
 import {HomeScene, MyMoviesScene} from './screens';
+import {fontScale} from './commons/scaling';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -20,10 +21,16 @@ function Home() {
       }}>
       <Tab.Screen
         name="Tendências"
+        options={{
+          tabBarLabel: () => <Text style={styles.tabText}>Tendências</Text>,
+        }}
         component={nav => <HomeScene navigator={nav} />}
       />
       <Tab.Screen
         name="MeusFilmes"
+        options={{
+          tabBarLabel: () => <Text style={styles.tabText}>Meus Filmes</Text>,
+        }}
         component={nav => <MyMoviesScene navigator={nav} />}
       />
     </Tab.Navigator>
@@ -34,7 +41,7 @@ function Profile() {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        labelStyle: {fontSize: 18},
+        labelStyle: {fontSize: fontScale(18)},
         style: {backgroundColor: colors.awsomeRed},
         activeTintColor: 'white',
         indicatorStyle: {backgroundColor: 'white'},
@@ -57,7 +64,7 @@ export default function App() {
         />
         <SafeAreaView style={{flex: 1}}>
           <View style={{paddingVertical: 20, paddingHorizontal: 30}}>
-            <Text style={{color: 'white', fontSize: 18}}>Jump Movie List</Text>
+            <Text style={{color: 'white', fontSize: 18}}>Movie List</Text>
           </View>
 
           <Stack.Navigator>
@@ -76,3 +83,10 @@ export default function App() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  tabText: {
+    color: 'white',
+    fontSize: fontScale(18),
+  },
+});
