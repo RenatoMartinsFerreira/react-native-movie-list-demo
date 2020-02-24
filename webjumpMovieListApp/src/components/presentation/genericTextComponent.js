@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
     fontSize: fontScale(18),
   },
   body: {
-    fontSize: fontScale(18),
-    lineHeight: fontScale(24),
+    fontSize: fontScale(13),
+    lineHeight: fontScale(14),
   },
   tiny: {
     fontSize: fontScale(12),

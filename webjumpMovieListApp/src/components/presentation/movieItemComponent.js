@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Text, Image} from 'react-native';
+import {View, StyleSheet, Image} from 'react-native';
 import PropTypes from 'prop-types';
 import {horizontalScale} from 'webjumpMovieListApp/src/commons/scaling';
 import colors from 'webjumpMovieListApp/src/commons/colors';
@@ -7,42 +7,61 @@ import {GenericTextComponent} from 'webjumpMovieListApp/src/components/presentat
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {verticalScale} from '../../commons/scaling';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
-export const MovieItemComponent = ({movie}) => {
+export const MovieItemComponent = ({
+  movie,
+  onMoviePress = () => {},
+  onIconPress = () => {},
+}) => {
+  console.log('Movie component', movie);
+
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.bannerContainer}
-        source={{
-          uri: movie.uri
-            ? movie.uri
-            : 'https://image.tmdb.org/t/p/w500/vllvystwQjmXzy5OvBKnGl1JREF.jpg',
-        }}
-      />
+      <TouchableOpacity
+        onPress={() => {
+          onMoviePress();
+        }}>
+        <Image
+          style={styles.bannerContainer}
+          source={{
+            uri: movie.uri
+              ? `https://image.tmdb.org/t/p/w500/${movie.uri}`
+              : 'https://image.tmdb.org/t/p/w500/vllvystwQjmXzy5OvBKnGl1JREF.jpg',
+          }}
+        />
+      </TouchableOpacity>
       <View style={styles.dataContainer}>
         <View style={styles.topRowContainer}>
           <View style={styles.titleContainer}>
             <GenericTextComponent
               styleguideItem={GenericTextComponent.StyleguideItem.HEADING}
-              color={'#081C24'}
+              color={colors.redishBlack}
               text={movie.title}
             />
 
             <GenericTextComponent
               styleguideItem={GenericTextComponent.StyleguideItem.TINY}
-              color={'#464646'}
-              text={`${movie.yaer} | ${movie.time}`}
+              color={colors.redishOpaqueBlack}
+              text={`${movie.year} | ${movie.time}`}
             />
           </View>
-          <View style={styles.iconContainer}>
-            <Text> S2 </Text>
-            <Icon name="rocket" size={30} color="#900" />
-          </View>
+          <TouchableOpacity
+            onPress={() => {
+              onIconPress();
+            }}
+            style={styles.iconContainer}>
+            <Icon name="rocket" size={30} color={colors.awsomeRed} />
+          </TouchableOpacity>
         </View>
         <View style={styles.descriptionContainer}>
-          <Text numberOfLines={5} ellipsizeMode="tail">
-            {movie.description}
-          </Text>
+          <GenericTextComponent
+            styleguideItem={GenericTextComponent.StyleguideItem.BODY}
+            text={movie.description}
+            color={colors.redishBlack}
+            numberOfLines={5}
+            ellipsizeMode="tail"
+          />
         </View>
       </View>
     </View>
@@ -70,7 +89,7 @@ const styles = StyleSheet.create({
   dataContainer: {
     flex: 1,
     flexDirection: 'column',
-    paddingLeft: horizontalScale(10)
+    paddingLeft: horizontalScale(10),
   },
   titleContainer: {
     flex: 3,
@@ -94,7 +113,7 @@ const styles = StyleSheet.create({
     flex: 5,
     paddingHorizontal: horizontalScale(5),
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
   },
   topRowContainer: {
     flex: 1,

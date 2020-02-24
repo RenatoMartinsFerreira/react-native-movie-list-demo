@@ -4,7 +4,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import colors from 'webjumpMovieListApp/src/commons/colors';
 import {createStackNavigator} from '@react-navigation/stack';
-import {HomeScene, MyMoviesScene} from './screens';
+import {GenericTextComponent} from 'webjumpMovieListApp/src/components/presentation';
+import {HomeScene, MyMoviesScene, MovieDetailScene} from './screens';
 import {fontScale} from './commons/scaling';
 
 const Tab = createMaterialTopTabNavigator();
@@ -37,20 +38,24 @@ function Home() {
   );
 }
 
-function Profile() {
+function movieDetail() {
   return (
-    <Tab.Navigator
+    <Stack.Navigator
       tabBarOptions={{
         labelStyle: {fontSize: fontScale(18)},
         style: {backgroundColor: colors.awsomeRed},
         activeTintColor: 'white',
         indicatorStyle: {backgroundColor: 'white'},
       }}>
-      <Tab.Screen
+      <Stack.Screen
+        options={{
+          header: false,
+          headerShown: false,
+        }}
         name="Tendências"
-        component={nav => <HomeScene navigator={nav} />}
+        component={nav => <MovieDetailScene navigator={nav} />}
       />
-    </Tab.Navigator>
+    </Stack.Navigator>
   );
 }
 
@@ -63,8 +68,12 @@ export default function App() {
           barStyle="light-content"
         />
         <SafeAreaView style={{flex: 1}}>
-          <View style={{paddingVertical: 20, paddingHorizontal: 30}}>
-            <Text style={{color: 'white', fontSize: 18}}>Movie List</Text>
+          <View style={styles.headerContainer}>
+            <GenericTextComponent
+              styleguideItem={GenericTextComponent.StyleguideItem.HEADING}
+              text={'Movie List'}
+              color={colors.white}
+            />
           </View>
 
           <Stack.Navigator>
@@ -76,7 +85,14 @@ export default function App() {
               name="Home"
               component={Home}
             />
-            <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen
+              options={{
+                header: false,
+                headerShown: false,
+              }}
+              name="movieDetail"
+              component={movieDetail}
+            />
           </Stack.Navigator>
         </SafeAreaView>
       </NavigationContainer>
@@ -88,5 +104,9 @@ const styles = StyleSheet.create({
   tabText: {
     color: 'white',
     fontSize: fontScale(18),
+  },
+  headerContainer: {
+    paddingVertical: 20,
+    paddingHorizontal: 30,
   },
 });

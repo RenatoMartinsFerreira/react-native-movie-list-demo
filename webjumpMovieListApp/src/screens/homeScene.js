@@ -9,39 +9,48 @@ class HomeScene extends Component {
     super({...props});
     this.state = {
       loading: true,
+      movies: [
+        {
+          movie: {
+            title: 'Tron',
+            yaer: 2019,
+            time: '2h27min',
+            description: 'teste',
+          },
+        },
+      ],
     };
 
-    this.movieMockData = [
-      {
-        title: 'Batman',
-        yaer: 2020,
-        time: '1h27min',
-        description:
-          'A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground "fight clubs" forming in every ...',
-        uri: 'https://image.tmdb.org/t/p/w500/pKKvCaL1TPTVtbI6EeliyND3api.jpg',
-      },
-      {title: 'Tron', yaer: 2019, time: '2h27min', description: 'teste'},
-      {title: 'Tron', yaer: 2019, time: '2h27min', description: 'teste'},
-      {title: 'Tron', yaer: 2019, time: '2h27min', description: 'teste'},
-      {title: 'Tron', yaer: 2019, time: '2h27min', description: 'teste'},
-      {title: 'Tron', yaer: 2019, time: '2h27min', description: 'teste'},
-    ];
-
-    this.movieListModel = new MovieListModel();
+    this.movieListModel = new MovieListModel(MovieListModel.TYPE.TRENDING);
   }
 
   componentDidMount() {
-    this.setState({loading: false});
+    this.movieListModel.setMovies().then(treandMovieList => {
+      console.log('treandMovieList', treandMovieList);
+
+      this.setState(
+        {movies: treandMovieList.movies},
+        this.setState({loading: false}),
+      );
+    });
   }
 
   render() {
     return !this.state.loading ? (
       <>
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{flex: 1, backgroundColor: '#F2EEEE'}}>
           <FlatList
             style={{flex: 1}}
-            data={this.movieMockData}
-            renderItem={({item}) => <MovieItemComponent movie={item} />}
+            data={this.state.movies}
+            extraData={this.state.movies}
+            renderItem={({item}) => (
+              <MovieItemComponent
+                movie={item.movie}
+                onMoviePress={() => {
+                  this.props.navigator.navigation.navigate('movieDetail');
+                }}
+              />
+            )}
             ItemSeparatorComponent={() => <View style={styles.listSeparator} />}
           />
         </SafeAreaView>
