@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {horizontalScale} from 'webjumpMovieListApp/src/commons/scaling';
 import colors from 'webjumpMovieListApp/src/commons/colors';
 import {GenericTextComponent} from 'webjumpMovieListApp/src/components/presentation';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {verticalScale} from '../../commons/scaling';
 
@@ -35,6 +36,7 @@ export const MovieItemComponent = ({movie}) => {
           </View>
           <View style={styles.iconContainer}>
             <Text> S2 </Text>
+            <Icon name="rocket" size={30} color="#900" />
           </View>
         </View>
         <View style={styles.descriptionContainer}>

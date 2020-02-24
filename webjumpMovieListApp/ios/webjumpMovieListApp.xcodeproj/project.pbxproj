@@ -44,6 +44,7 @@
 		00E356EE1AD99517003FC87E /* webjumpMovieListAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = webjumpMovieListAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* webjumpMovieListAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = webjumpMovieListAppTests.m; sourceTree = "<group>"; };
+		124E476A2403E05800085901 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* webjumpMovieListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = webjumpMovieListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = webjumpMovieListApp/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = webjumpMovieListApp/AppDelegate.m; sourceTree = "<group>"; };
@@ -134,13 +135,21 @@
 				FD72AD8D26CE6247B233E155 /* Pods-webjumpMovieListAppTests.debug.xcconfig */,
 				FE549F1F6F2686C620570849 /* Pods-webjumpMovieListAppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		124E47692403E04600085901 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				124E476A2403E05800085901 /* FontAwesome.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		13B07FAE1A68108700A75B9A /* webjumpMovieListApp */ = {
 			isa = PBXGroup;
 			children = (
+				124E47692403E04600085901 /* Fonts */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -308,6 +317,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
