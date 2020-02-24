@@ -89,22 +89,18 @@ GenericTextComponent.StyleguideItem = StyleguideItem;
 const styles = StyleSheet.create({
   heading: {
     fontSize: fontScale(18),
-    fontFamily: 'Inter-Bold',
   },
   body: {
     fontSize: fontScale(18),
-    fontFamily: 'Inter-Regular',
     lineHeight: fontScale(24),
   },
   tiny: {
     fontSize: fontScale(12),
-    fontFamily: 'Inter-Regular',
     lineHeight: fontScale(24),
   },
 
   default: {
     fontSize: fontScale(14),
-    fontFamily: 'Inter-Regular',
     lineHeight: fontScale(24),
   },
 });
