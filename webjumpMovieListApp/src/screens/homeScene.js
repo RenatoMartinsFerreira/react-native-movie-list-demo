@@ -19,8 +19,11 @@ class HomeScene extends Component {
         <SafeAreaView>
           <Text>webjump movie List</Text>
 
-          <TouchableOpacity>
-            <Text>push</Text>
+          <TouchableOpacity
+            onPress={() => {
+              this.props.navigator.navigation.navigate('Profile');
+            }}>
+            <Text>teste</Text>
           </TouchableOpacity>
         </SafeAreaView>
       </>
