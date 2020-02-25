@@ -27,13 +27,13 @@ class MovieDetailScene extends Component {
       loading: true,
     };
 
-    console.log(this.props.movie);
+    console.log('detail', this.props.movie);
   }
 
   render() {
     return (
       <>
-        <SafeAreaView style={{flex: 1, backgroundColor: '#F2EEEE'}}>
+        <SafeAreaView style={{flex: 1}}>
           <View style={styles.topContainer}>
             <Image
               style={styles.bannerContainer}
@@ -71,7 +71,7 @@ class MovieDetailScene extends Component {
                   style={{marginRight: horizontalScale(10)}}
                   name="link"
                   size={fontScale(30)}
-                  color={colors.awsomeRed}
+                  color={colors.awesomeRed}
                 />
                 <GenericTextComponent
                   styleguideItem={GenericTextComponentStyleguideItem.HEADING}
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   roundedButton: {
     borderWidth: 1,
-    borderColor: colors.awsomeRed,
+    borderColor: colors.awesomeRed,
     backgroundColor: colors.white,
     borderRadius: 4,
     paddingVertical: verticalScale(10),

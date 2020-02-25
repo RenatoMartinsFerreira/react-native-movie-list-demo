@@ -66,7 +66,7 @@ class HomeScene extends Component {
             <Icon
               name="trakt-icon-red"
               size={fontScale(150)}
-              color={colors.awsomeRed}
+              color={colors.awesomeRed}
             />
             <Icon name="tmdb" size={fontScale(150)} color={colors.tmdbGreen} />
           </View>
@@ -77,7 +77,7 @@ class HomeScene extends Component {
             textAlign={'center'}
           />
 
-          <ActivityIndicator color={colors.awsomeRed} />
+          <ActivityIndicator color={colors.awesomeRed} />
         </SafeAreaView>
       </>
     );

@@ -16,11 +16,24 @@ import Icon from 'webjumpMovieListApp/src/commons/icon';
 
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
+const storeData = async movie => {
+  try {
+    await AsyncStorage.setItem('@myMovies', JSON.stringify(movie));
+  } catch (e) {
+    // saving error
+  }
+};
+
 export const MovieItemComponent = ({
   movie,
   onMoviePress = () => {},
-  onIconPress = () => {},
+  onIconPress = () => {
+    storeData(movie);
+  },
 }) => {
+  console.log('movie component', movie)
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -59,7 +72,7 @@ export const MovieItemComponent = ({
             <Icon
               name="favorite-border"
               size={fontScale(30)}
-              color={colors.awsomeRed}
+              color={colors.awesomeRed}
             />
           </TouchableOpacity>
         </View>

@@ -26,7 +26,7 @@ function Home() {
     <Tab.Navigator
       tabBarOptions={{
         labelStyle: {fontSize: 18},
-        style: {backgroundColor: colors.awsomeRed},
+        style: {backgroundColor: colors.awesomeRed},
         activeTintColor: 'white',
         indicatorStyle: {backgroundColor: 'white'},
       }}>
@@ -53,7 +53,7 @@ function movieDetail({route, navigation}) {
     <Stack.Navigator
       tabBarOptions={{
         labelStyle: {fontSize: fontScale(18)},
-        style: {backgroundColor: colors.awsomeRed},
+        style: {backgroundColor: colors.awesomeRed},
         activeTintColor: 'white',
         indicatorStyle: {backgroundColor: 'white'},
       }}>
@@ -73,10 +73,10 @@ function movieDetail({route, navigation}) {
 
 export default function App(route, navigation) {
   return (
-    <View style={{flex: 1, backgroundColor: colors.awsomeRed}}>
+    <View style={{flex: 1, backgroundColor: colors.awesomeRed}}>
       <NavigationContainer>
         <StatusBar
-          backgroundColor={colors.awsomeRed}
+          backgroundColor={colors.awesomeRed}
           barStyle="light-content"
         />
         <SafeAreaView style={{flex: 1}}>
