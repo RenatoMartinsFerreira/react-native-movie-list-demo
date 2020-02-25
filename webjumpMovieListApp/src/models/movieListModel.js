@@ -14,26 +14,29 @@ export default class MovieListModel {
 
   static saveMovieList = (movieListData, saveOnDS = true) => {};
 
-  constructor(type = MovieListModel.TYPE.DEFALT, movies = []) {
+  constructor(type = MovieListModel.TYPE.DEFALT, movies = [], offset = 1) {
     const movieListData = Store.getState().movieListReducer;
     this.movies = movies || movieListData.movies;
     this.type = type;
+    this.offset = offset;
     this.tmdbService = new TmdbService();
     this.traktService = new TraktService();
   }
-  setMovies = () => {
+  setMovies = offset => {
     return new Promise((resolve, reject) => {
-      this.traktService.trendingList().then(response => {
+      this.traktService.trendingList(offset).then(response => {
         // resolve(new MovieListModel(this.type, response.data[0].movies)),
-        const newMovieListModel = new MovieListModel(this.type, response.data);
+        const newMovieListModel = new MovieListModel(
+          this.type,
+          response.data,
+          offset,
+        );
         for (const key in newMovieListModel.movies) {
           if (newMovieListModel.movies.hasOwnProperty(key)) {
             const element = newMovieListModel.movies[key];
             this.tmdbService
               .movieData(element.movie.ids.tmdb)
               .then(tmdbData => {
-                console.log('api', tmdbData);
-
                 newMovieListModel.movies[key].movie.uri =
                   tmdbData.data.poster_path;
                 newMovieListModel.movies[key].movie.description =
@@ -48,6 +51,16 @@ export default class MovieListModel {
               });
           }
         }
+      });
+    });
+  };
+
+  nextPageMovies = () => {
+    return new Promise((resolve, reject) => {
+      this.offset = this.offset + 1;
+      this.setMovies(this.offset).then(newMovies => {
+        console.log('newMovies', newMovies);
+        resolve(newMovies);
       });
     });
   };

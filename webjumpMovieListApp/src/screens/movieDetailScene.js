@@ -60,24 +60,28 @@ class MovieDetailScene extends Component {
                 />
               </View>
 
-              <TouchableOpacity
-                onPress={() =>
-                  Linking.openURL(this.props.movie.link).catch(err =>
-                    console.error("Couldn't load page", err),
-                  )
-                }
-                style={styles.roundedButton}>
-                <Icon
-                  style={{marginRight: horizontalScale(10)}}
-                  name="link"
-                  size={fontScale(30)}
-                  color={colors.awesomeRed}
-                />
-                <GenericTextComponent
-                  styleguideItem={GenericTextComponentStyleguideItem.HEADING}
-                  text={'Link'}
-                />
-              </TouchableOpacity>
+              {this.props.movie.link ? (
+                <TouchableOpacity
+                  onPress={() =>
+                    Linking.openURL(this.props.movie.link).catch(err =>
+                      console.error("Couldn't load page", err),
+                    )
+                  }
+                  style={styles.roundedButton}>
+                  <Icon
+                    style={{marginRight: horizontalScale(10)}}
+                    name="link"
+                    size={fontScale(30)}
+                    color={colors.awesomeRed}
+                  />
+                  <GenericTextComponent
+                    styleguideItem={GenericTextComponentStyleguideItem.HEADING}
+                    text={'Link'}
+                  />
+                </TouchableOpacity>
+              ) : (
+                <View />
+              )}
             </View>
           </View>
 

@@ -10,6 +10,3 @@ export {
 export {
   TextCardComponent,
 } from 'webjumpMovieListApp/src/components/presentation/textCardComponent';
-export {
-  GenericButtonComponent,
-} from 'webjumpMovieListApp/src/components/presentation/genericButtonComponent';
