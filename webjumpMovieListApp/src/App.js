@@ -11,7 +11,10 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import colors from 'webjumpMovieListApp/src/commons/colors';
 import {createStackNavigator} from '@react-navigation/stack';
-import {GenericTextComponent, GenericTextComponentStyleguideItem} from 'webjumpMovieListApp/src/components/presentation';
+import {
+  GenericTextComponent,
+  GenericTextComponentStyleguideItem,
+} from 'webjumpMovieListApp/src/components/presentation';
 import {HomeScene, MyMoviesScene, MovieDetailScene} from './screens';
 import {fontScale} from './commons/scaling';
 import Icon from 'webjumpMovieListApp/src/commons/icon';
