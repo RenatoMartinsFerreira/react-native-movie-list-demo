@@ -33,7 +33,6 @@ export const MovieItemComponent = ({
     storeData(movie);
   },
 }) => {
-  console.log('movie component', movie);
   return (
     <View style={styles.container}>
       <TouchableOpacity
