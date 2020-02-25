@@ -1,24 +1,20 @@
 import React, {Component} from 'react';
-import {SafeAreaView, View, Text, StyleSheet} from 'react-native';
+import {SafeAreaView, View, StyleSheet, ActivityIndicator} from 'react-native';
 import MovieListModel from 'webjumpMovieListApp/src/models/movieListModel';
 import {MovieItemComponent} from 'webjumpMovieListApp/src/components/presentation';
 import {FlatList} from 'react-native-gesture-handler';
+import {GenericTextComponent} from 'webjumpMovieListApp/src/components/presentation';
+import colors from 'webjumpMovieListApp/src/commons/colors';
+import Icon from 'webjumpMovieListApp/src/commons/icon';
+import {fontScale} from 'webjumpMovieListApp/src/commons/scaling';
+import {horizontalScale} from '../commons/scaling';
 
 class HomeScene extends Component {
   constructor(props) {
     super({...props});
     this.state = {
       loading: true,
-      movies: [
-        {
-          movie: {
-            title: 'Tron',
-            yaer: 2019,
-            time: '2h27min',
-            description: 'teste',
-          },
-        },
-      ],
+      movies: [],
     };
 
     this.movieListModel = new MovieListModel(MovieListModel.TYPE.TRENDING);
@@ -57,8 +53,28 @@ class HomeScene extends Component {
       </>
     ) : (
       <>
-        <SafeAreaView style={{flex: 1}}>
-          <Text> loading </Text>
+        <SafeAreaView style={styles.loadingScreenContainer}>
+          <View
+            style={{
+              flexDirection: 'row',
+              padding: horizontalScale(20),
+              justifyContent: 'space-around',
+            }}>
+            <Icon
+              name="trakt-icon-red"
+              size={fontScale(150)}
+              color={colors.awsomeRed}
+            />
+            <Icon name="tmdb" size={fontScale(150)} color={colors.tmdbGreen} />
+          </View>
+
+          <GenericTextComponent
+            styleguideItem={GenericTextComponent.StyleguideItem.HEADING}
+            text={'Powerd by \n Trakt and TMDB'}
+            textAlign={'center'}
+          />
+
+          <ActivityIndicator color={colors.awsomeRed} />
         </SafeAreaView>
       </>
     );
@@ -68,6 +84,12 @@ class HomeScene extends Component {
 export default HomeScene;
 
 const styles = StyleSheet.create({
+  loadingScreenContainer: {
+    flex: 1,
+    // alignItems: 'center',
+    justifyContent: 'center',
+  },
+
   listSeparator: {
     borderWidth: 1 / 2,
     borderColor: '#D6D6D6',

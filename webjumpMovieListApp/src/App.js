@@ -1,5 +1,12 @@
 import * as React from 'react';
-import {Text, View, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
+import {
+  Text,
+  View,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import colors from 'webjumpMovieListApp/src/commons/colors';
@@ -7,9 +14,12 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {GenericTextComponent} from 'webjumpMovieListApp/src/components/presentation';
 import {HomeScene, MyMoviesScene, MovieDetailScene} from './screens';
 import {fontScale} from './commons/scaling';
+import Icon from 'webjumpMovieListApp/src/commons/icon';
+import {horizontalScale} from 'webjumpMovieListApp/src/commons/scaling';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
+const showBackButton = false;
 
 function Home() {
   return (
@@ -69,6 +79,23 @@ export default function App() {
         />
         <SafeAreaView style={{flex: 1}}>
           <View style={styles.headerContainer}>
+            {showBackButton && (
+              <TouchableOpacity>
+                <Icon
+                  style={{marginRight: horizontalScale(10)}}
+                  name="arrow-back"
+                  size={fontScale(25)}
+                  color={colors.white}
+                />
+              </TouchableOpacity>
+            )}
+
+            <Icon
+              style={{marginRight: horizontalScale(10)}}
+              name="trakt-icon-white"
+              size={fontScale(25)}
+              color={colors.white}
+            />
             <GenericTextComponent
               styleguideItem={GenericTextComponent.StyleguideItem.HEADING}
               text={'Movie List'}
@@ -108,5 +135,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     paddingVertical: 20,
     paddingHorizontal: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

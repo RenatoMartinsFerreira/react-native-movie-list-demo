@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {SafeAreaView, View, Text, StyleSheet} from 'react-native';
+import {SafeAreaView, View, Text, StyleSheet, } from 'react-native';
 import MovieListModel from 'webjumpMovieListApp/src/models/movieListModel';
 import {MovieItemComponent} from 'webjumpMovieListApp/src/components/presentation';
 import {FlatList} from 'react-native-gesture-handler';
@@ -37,7 +37,7 @@ class MovieDetailScene extends Component {
     ) : (
       <>
         <SafeAreaView style={{flex: 1}}>
-          <Text> loading </Text>
+          <Text> Powerd by Trakt and TMDB </Text>
         </SafeAreaView>
       </>
     );
