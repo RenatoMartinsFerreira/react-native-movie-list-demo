@@ -48,7 +48,7 @@ function Home() {
   );
 }
 
-function movieDetail() {
+function movieDetail({route, navigation}) {
   return (
     <Stack.Navigator
       tabBarOptions={{
@@ -63,7 +63,9 @@ function movieDetail() {
           headerShown: false,
         }}
         name="Tendências"
-        component={nav => <MovieDetailScene navigator={nav} />}
+        component={nav => (
+          <MovieDetailScene navigator={nav} movie={route.params.item.movie} />
+        )}
       />
     </Stack.Navigator>
   );

@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 import {
   horizontalScale,
   fontScale,
+  verticalScale,
 } from 'webjumpMovieListApp/src/commons/scaling';
 import colors from 'webjumpMovieListApp/src/commons/colors';
 import {GenericTextComponent} from 'webjumpMovieListApp/src/components/presentation';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'webjumpMovieListApp/src/commons/icon';
 
-import {verticalScale} from '../../commons/scaling';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export const MovieItemComponent = ({
@@ -18,7 +18,6 @@ export const MovieItemComponent = ({
   onMoviePress = () => {},
   onIconPress = () => {},
 }) => {
-  console.log('Movie component', movie);
 
   return (
     <View style={styles.container}>

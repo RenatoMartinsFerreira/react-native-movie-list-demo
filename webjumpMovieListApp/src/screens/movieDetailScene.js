@@ -1,8 +1,23 @@
 import React, {Component} from 'react';
-import {SafeAreaView, View, Text, StyleSheet, } from 'react-native';
-import MovieListModel from 'webjumpMovieListApp/src/models/movieListModel';
-import {MovieItemComponent} from 'webjumpMovieListApp/src/components/presentation';
-import {FlatList} from 'react-native-gesture-handler';
+import {
+  SafeAreaView,
+  View,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  Linking,
+} from 'react-native';
+import {
+  horizontalScale,
+  fontScale,
+  verticalScale,
+} from 'webjumpMovieListApp/src/commons/scaling';
+import {
+  GenericTextComponent,
+  TextCardComponent,
+} from 'webjumpMovieListApp/src/components/presentation';
+import Icon from 'webjumpMovieListApp/src/commons/icon';
+import colors from 'webjumpMovieListApp/src/commons/colors';
 
 class MovieDetailScene extends Component {
   constructor(props) {
@@ -11,33 +26,63 @@ class MovieDetailScene extends Component {
       loading: true,
     };
 
-    this.movieMockData = {
-      title: 'Batman',
-      yaer: 2020,
-      time: '1h27min',
-      description:
-        'A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. Their concept catches on, with underground "fight clubs" forming in every ...',
-      uri: 'https://image.tmdb.org/t/p/w500/pKKvCaL1TPTVtbI6EeliyND3api.jpg',
-    };
-
-    this.movieListModel = new MovieListModel();
-  }
-
-  componentDidMount() {
-    this.setState({loading: false});
+    console.log(this.props.movie);
   }
 
   render() {
-    return !this.state.loading ? (
+    return (
       <>
-        <SafeAreaView style={{flex: 1}}>
-          <MovieItemComponent movie={this.movieMockData} />
-        </SafeAreaView>
-      </>
-    ) : (
-      <>
-        <SafeAreaView style={{flex: 1}}>
-          <Text> Powerd by Trakt and TMDB </Text>
+        <SafeAreaView style={{flex: 1, backgroundColor: '#F2EEEE'}}>
+          <View style={styles.topContainer}>
+            <Image
+              style={styles.bannerContainer}
+              source={{
+                uri: `https://image.tmdb.org/t/p/w500/${this.props.movie.uri}`,
+              }}
+            />
+
+            <View
+              style={{
+                flex: 1,
+                paddingHorizontal: horizontalScale(10),
+                justifyContent: 'space-around',
+              }}>
+              <View>
+                <GenericTextComponent
+                  styleguideItem={GenericTextComponent.StyleguideItem.HEADING}
+                  text={this.props.movie.title}
+                />
+
+                <GenericTextComponent
+                  styleguideItem={GenericTextComponent.StyleguideItem.TINY}
+                  text={this.props.movie.year}
+                />
+              </View>
+
+              <TouchableOpacity
+                onPress={() =>
+                  Linking.openURL(this.props.movie.link).catch(err =>
+                    console.error("Couldn't load page", err),
+                  )
+                }
+                style={styles.roundedButton}>
+                <Icon
+                  style={{marginRight: horizontalScale(10)}}
+                  name="link"
+                  size={fontScale(30)}
+                  color={colors.awsomeRed}
+                />
+                <GenericTextComponent
+                  styleguideItem={GenericTextComponent.StyleguideItem.HEADING}
+                  text={'Link'}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <View style={{flex: 1, paddingHorizontal: horizontalScale(30)}}>
+            <TextCardComponent text={this.props.movie.description} />
+          </View>
         </SafeAreaView>
       </>
     );
@@ -50,5 +95,28 @@ const styles = StyleSheet.create({
   listSeparator: {
     borderWidth: 1 / 2,
     borderColor: '#D6D6D6',
+  },
+  topContainer: {
+    paddingVertical: verticalScale(30),
+    paddingHorizontal: horizontalScale(30),
+    flexDirection: 'row',
+  },
+  roundedButton: {
+    borderWidth: 1,
+    borderColor: colors.awsomeRed,
+    backgroundColor: colors.white,
+    borderRadius: 4,
+    paddingVertical: verticalScale(10),
+    paddingHorizontal: horizontalScale(10),
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+
+  bannerContainer: {
+    width: horizontalScale(124),
+    aspectRatio: 500 / 750,
+    resizeMode: 'cover',
+    borderRadius: 2,
   },
 });

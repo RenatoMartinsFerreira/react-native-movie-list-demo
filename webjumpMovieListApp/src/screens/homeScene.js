@@ -22,8 +22,6 @@ class HomeScene extends Component {
 
   componentDidMount() {
     this.movieListModel.setMovies().then(treandMovieList => {
-      console.log('treandMovieList', treandMovieList);
-
       this.setState(
         {movies: treandMovieList.movies},
         this.setState({loading: false}),
@@ -43,7 +41,9 @@ class HomeScene extends Component {
               <MovieItemComponent
                 movie={item.movie}
                 onMoviePress={() => {
-                  this.props.navigator.navigation.navigate('movieDetail');
+                  this.props.navigator.navigation.navigate('movieDetail', {
+                    item,
+                  });
                 }}
               />
             )}

@@ -12,7 +12,6 @@ const StyleguideItem = {
 };
 
 export const GenericTextComponent = ({
-  testID,
   styleguideItem,
   text,
   color,
@@ -42,7 +41,6 @@ export const GenericTextComponent = ({
 
   return (
     <Text
-      testID={testID}
       style={[
         currentStyle,
         {
