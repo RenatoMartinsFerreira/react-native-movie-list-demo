@@ -33,7 +33,7 @@ export const MovieItemComponent = ({
     storeData(movie);
   },
 }) => {
-  console.log('movie component', movie)
+  console.log('movie component', movie);
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -52,18 +52,24 @@ export const MovieItemComponent = ({
       <View style={styles.dataContainer}>
         <View style={styles.topRowContainer}>
           <View style={styles.titleContainer}>
-            <GenericTextComponent
-              styleguideItem={GenericTextComponentStyleguideItem.HEADING}
-              color={colors.redishBlack}
-              text={movie.title}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                onMoviePress();
+              }}>
+              <GenericTextComponent
+                styleguideItem={GenericTextComponentStyleguideItem.HEADING}
+                color={colors.redishBlack}
+                text={movie.title}
+              />
 
-            <GenericTextComponent
-              styleguideItem={GenericTextComponentStyleguideItem.TINY}
-              color={colors.redishOpaqueBlack}
-              text={`${movie.year}`}
-            />
+              <GenericTextComponent
+                styleguideItem={GenericTextComponentStyleguideItem.TINY}
+                color={colors.redishOpaqueBlack}
+                text={`${movie.year}`}
+              />
+            </TouchableOpacity>
           </View>
+
           <TouchableOpacity
             onPress={() => {
               onIconPress();
