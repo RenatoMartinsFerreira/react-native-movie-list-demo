@@ -7,7 +7,10 @@ import {
   verticalScale,
 } from 'webjumpMovieListApp/src/commons/scaling';
 import colors from 'webjumpMovieListApp/src/commons/colors';
-import {GenericTextComponent} from 'webjumpMovieListApp/src/components/presentation';
+import {
+  GenericTextComponent,
+  GenericTextComponentStyleguideItem,
+} from 'webjumpMovieListApp/src/components/presentation';
 // import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'webjumpMovieListApp/src/commons/icon';
 
@@ -18,7 +21,6 @@ export const MovieItemComponent = ({
   onMoviePress = () => {},
   onIconPress = () => {},
 }) => {
-
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -38,13 +40,13 @@ export const MovieItemComponent = ({
         <View style={styles.topRowContainer}>
           <View style={styles.titleContainer}>
             <GenericTextComponent
-              styleguideItem={GenericTextComponent.StyleguideItem.HEADING}
+              styleguideItem={GenericTextComponentStyleguideItem.HEADING}
               color={colors.redishBlack}
               text={movie.title}
             />
 
             <GenericTextComponent
-              styleguideItem={GenericTextComponent.StyleguideItem.TINY}
+              styleguideItem={GenericTextComponentStyleguideItem.TINY}
               color={colors.redishOpaqueBlack}
               text={`${movie.year}`}
             />
@@ -63,7 +65,7 @@ export const MovieItemComponent = ({
         </View>
         <View style={styles.descriptionContainer}>
           <GenericTextComponent
-            styleguideItem={GenericTextComponent.StyleguideItem.BODY}
+            styleguideItem={GenericTextComponentStyleguideItem.BODY}
             text={movie.description}
             color={colors.redishBlack}
             numberOfLines={5}

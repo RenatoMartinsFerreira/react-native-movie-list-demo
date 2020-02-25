@@ -3,7 +3,10 @@ import {SafeAreaView, View, StyleSheet, ActivityIndicator} from 'react-native';
 import MovieListModel from 'webjumpMovieListApp/src/models/movieListModel';
 import {MovieItemComponent} from 'webjumpMovieListApp/src/components/presentation';
 import {FlatList} from 'react-native-gesture-handler';
-import {GenericTextComponent} from 'webjumpMovieListApp/src/components/presentation';
+import {
+  GenericTextComponent,
+  GenericTextComponentStyleguideItem,
+} from 'webjumpMovieListApp/src/components/presentation';
 import colors from 'webjumpMovieListApp/src/commons/colors';
 import Icon from 'webjumpMovieListApp/src/commons/icon';
 import {fontScale} from 'webjumpMovieListApp/src/commons/scaling';
@@ -69,7 +72,7 @@ class HomeScene extends Component {
           </View>
 
           <GenericTextComponent
-            styleguideItem={GenericTextComponent.StyleguideItem.HEADING}
+            styleguideItem={GenericTextComponentStyleguideItem.HEADING}
             text={'Powerd by \n Trakt and TMDB'}
             textAlign={'center'}
           />

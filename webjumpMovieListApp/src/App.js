@@ -11,7 +11,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import colors from 'webjumpMovieListApp/src/commons/colors';
 import {createStackNavigator} from '@react-navigation/stack';
-import {GenericTextComponent} from 'webjumpMovieListApp/src/components/presentation';
+import {GenericTextComponent, GenericTextComponentStyleguideItem} from 'webjumpMovieListApp/src/components/presentation';
 import {HomeScene, MyMoviesScene, MovieDetailScene} from './screens';
 import {fontScale} from './commons/scaling';
 import Icon from 'webjumpMovieListApp/src/commons/icon';
@@ -19,7 +19,7 @@ import {horizontalScale} from 'webjumpMovieListApp/src/commons/scaling';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
-const showBackButton = false;
+let showBackButton = false;
 
 function Home() {
   return (
@@ -71,7 +71,7 @@ function movieDetail({route, navigation}) {
   );
 }
 
-export default function App() {
+export default function App(route, navigation) {
   return (
     <View style={{flex: 1, backgroundColor: colors.awsomeRed}}>
       <NavigationContainer>
@@ -99,7 +99,7 @@ export default function App() {
               color={colors.white}
             />
             <GenericTextComponent
-              styleguideItem={GenericTextComponent.StyleguideItem.HEADING}
+              styleguideItem={GenericTextComponentStyleguideItem.HEADING}
               text={'Movie List'}
               color={colors.white}
             />

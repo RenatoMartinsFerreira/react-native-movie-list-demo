@@ -1,17 +1,20 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import PropTypes from 'prop-types';
 import colors from 'webjumpMovieListApp/src/commons/colors';
 import {fontScale} from 'webjumpMovieListApp/src/commons/scaling';
+import {
+  GenericTextComponent,
+  GenericTextComponentStyleguideItem,
+} from 'webjumpMovieListApp/src/components/presentation';
 
-export const GenericTextComponentStyleguideItem = {
-  HEADING: 'HEADING',
-  BODY: 'BODY',
-  TINY: 'TINY',
+const StyleguideItem = {
+  FULFILL: 'FULFILL',
+  THIN: 'THIN',
   DEFAULT: 'DEFAULT',
 };
 
-export const GenericTextComponent = ({
+export const GenericButtonComponent = ({
   styleguideItem,
   text,
   color,
@@ -25,14 +28,11 @@ export const GenericTextComponent = ({
   let currentStyle;
 
   switch (styleguideItem) {
-    case GenericTextComponentStyleguideItem.HEADING:
-      currentStyle = styles.heading;
+    case StyleguideItem.FULFILL:
+      currentStyle = styles.fulfill;
       break;
-    case GenericTextComponentStyleguideItem.BODY:
-      currentStyle = styles.body;
-      break;
-    case GenericTextComponentStyleguideItem.TINY:
-      currentStyle = styles.tiny;
+    case StyleguideItem.THIN:
+      currentStyle = styles.thin;
       break;
     default:
       currentStyle = styles.default;
@@ -40,27 +40,14 @@ export const GenericTextComponent = ({
   }
 
   return (
-    <Text
-      style={[
-        currentStyle,
-        {
-          opacity,
-          color,
-          textAlign,
-          marginTop,
-          marginBottom,
-        },
-        !!strike && styles.strike,
-      ]}
-      allowFontScaling={false}
-      numberOfLines={numberOfLines}>
-      {text}
-    </Text>
+    <TouchableOpacity style={currentStyle}>
+      <GenericTextComponent text={text} />
+    </TouchableOpacity>
   );
 };
 
 GenericTextComponent.defaultProps = {
-  styleguideItem: GenericTextComponentStyleguideItem.DEFAULT,
+  styleguideItem: StyleguideItem.DEFAULT,
   color: colors.black,
   opacity: 1,
   textAlign: 'left',
@@ -71,9 +58,7 @@ GenericTextComponent.defaultProps = {
 };
 
 GenericTextComponent.propTypes = {
-  styleguideItem: PropTypes.oneOf(
-    Object.keys(GenericTextComponentStyleguideItem),
-  ),
+  styleguideItem: PropTypes.oneOf(Object.keys(StyleguideItem)),
   text: PropTypes.string.isRequired,
   color: PropTypes.string,
   opacity: PropTypes.number,
@@ -84,21 +69,16 @@ GenericTextComponent.propTypes = {
   strike: PropTypes.bool,
 };
 
-GenericTextComponent.GenericTextComponentStyleguideItem = GenericTextComponentStyleguideItem;
+GenericButtonComponent.StyleguideItem = StyleguideItem;
 
 const styles = StyleSheet.create({
-  heading: {
+  fulfill: {
     fontSize: fontScale(18),
   },
-  body: {
+  thin: {
     fontSize: fontScale(13),
     lineHeight: fontScale(14),
   },
-  tiny: {
-    fontSize: fontScale(12),
-    lineHeight: fontScale(24),
-  },
-
   default: {
     fontSize: fontScale(14),
     lineHeight: fontScale(24),

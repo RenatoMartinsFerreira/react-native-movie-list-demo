@@ -1,6 +1,9 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import {GenericTextComponent} from 'webjumpMovieListApp/src/components/presentation';
+import {
+  GenericTextComponent,
+  GenericTextComponentStyleguideItem,
+} from 'webjumpMovieListApp/src/components/presentation';
 import {
   horizontalScale,
   verticalScale,

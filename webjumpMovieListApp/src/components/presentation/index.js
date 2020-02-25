@@ -1,3 +1,15 @@
-export {MovieItemComponent} from './movieItemComponent';
-export {GenericTextComponent} from './genericTextComponent';
-export {TextCardComponent} from './textCardComponent';
+export {
+  MovieItemComponent,
+} from 'webjumpMovieListApp/src/components/presentation/movieItemComponent';
+export {
+  GenericTextComponent,
+} from 'webjumpMovieListApp/src/components/presentation/genericTextComponent';
+export {
+  GenericTextComponentStyleguideItem,
+} from 'webjumpMovieListApp/src/components/presentation/genericTextComponent';
+export {
+  TextCardComponent,
+} from 'webjumpMovieListApp/src/components/presentation/textCardComponent';
+export {
+  GenericButtonComponent,
+} from 'webjumpMovieListApp/src/components/presentation/genericButtonComponent';

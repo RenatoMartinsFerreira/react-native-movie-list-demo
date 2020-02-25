@@ -14,6 +14,7 @@ import {
 } from 'webjumpMovieListApp/src/commons/scaling';
 import {
   GenericTextComponent,
+  GenericTextComponentStyleguideItem,
   TextCardComponent,
 } from 'webjumpMovieListApp/src/components/presentation';
 import Icon from 'webjumpMovieListApp/src/commons/icon';
@@ -49,12 +50,12 @@ class MovieDetailScene extends Component {
               }}>
               <View>
                 <GenericTextComponent
-                  styleguideItem={GenericTextComponent.StyleguideItem.HEADING}
+                  styleguideItem={GenericTextComponentStyleguideItem.HEADING}
                   text={this.props.movie.title}
                 />
 
                 <GenericTextComponent
-                  styleguideItem={GenericTextComponent.StyleguideItem.TINY}
+                  styleguideItem={GenericTextComponentStyleguideItem.TINY}
                   text={this.props.movie.year}
                 />
               </View>
@@ -73,7 +74,7 @@ class MovieDetailScene extends Component {
                   color={colors.awsomeRed}
                 />
                 <GenericTextComponent
-                  styleguideItem={GenericTextComponent.StyleguideItem.HEADING}
+                  styleguideItem={GenericTextComponentStyleguideItem.HEADING}
                   text={'Link'}
                 />
               </TouchableOpacity>
