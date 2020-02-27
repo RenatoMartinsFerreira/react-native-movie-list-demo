@@ -40,14 +40,24 @@ export const MovieItemComponent = ({
         onPress={() => {
           onMoviePress();
         }}>
-        <Image
-          style={styles.bannerContainer}
-          source={{
-            uri: movie.uri
-              ? `https://image.tmdb.org/t/p/w500/${movie.uri}`
-              : 'https://image.tmdb.org/t/p/w500/vllvystwQjmXzy5OvBKnGl1JREF.jpg',
-          }}
-        />
+        {movie.uri ? (
+          <Image
+            style={styles.bannerContainer}
+            source={{
+              uri: movie.uri
+                ? `https://image.tmdb.org/t/p/w500/${movie.uri}`
+                : 'https://image.tmdb.org/t/p/w500/vllvystwQjmXzy5OvBKnGl1JREF.jpg',
+            }}
+          />
+        ) : (
+          <View style={[styles.bannerContainer, styles.bannerIconContainer]}>
+            <Icon
+              name="trakt-icon-red"
+              size={fontScale(60)}
+              color={colors.awesomeRed}
+            />
+          </View>
+        )}
       </TouchableOpacity>
       <View style={styles.dataContainer}>
         <View style={styles.topRowContainer}>
@@ -130,6 +140,11 @@ const styles = StyleSheet.create({
     aspectRatio: 500 / 750,
     resizeMode: 'cover',
     borderRadius: 2,
+    backgroundColor: colors.white,
+  },
+  bannerIconContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   iconContainer: {
     flex: 1,
