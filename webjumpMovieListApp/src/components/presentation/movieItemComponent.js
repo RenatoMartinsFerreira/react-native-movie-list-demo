@@ -11,7 +11,6 @@ import {
   GenericTextComponent,
   GenericTextComponentStyleguideItem,
 } from 'webjumpMovieListApp/src/components/presentation';
-// import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'webjumpMovieListApp/src/commons/icon';
 
 import {TouchableOpacity} from 'react-native-gesture-handler';
