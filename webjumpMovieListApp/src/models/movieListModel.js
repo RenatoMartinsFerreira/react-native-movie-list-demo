@@ -59,7 +59,6 @@ export default class MovieListModel {
     return new Promise((resolve, reject) => {
       this.offset = this.offset + 1;
       this.setMovies(this.offset).then(newMovies => {
-        console.log('newMovies', newMovies);
         resolve(newMovies);
       });
     });

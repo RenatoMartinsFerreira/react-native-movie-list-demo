@@ -10,3 +10,6 @@ export {
 export {
   TextCardComponent,
 } from 'webjumpMovieListApp/src/components/presentation/textCardComponent';
+export {
+  HeaderComponent,
+} from 'webjumpMovieListApp/src/components/presentation/headerComponent';

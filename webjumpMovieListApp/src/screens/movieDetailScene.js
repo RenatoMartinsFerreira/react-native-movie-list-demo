@@ -26,8 +26,6 @@ class MovieDetailScene extends Component {
     this.state = {
       loading: true,
     };
-
-    console.log('detail', this.props.movie);
   }
 
   render() {
