@@ -18,6 +18,7 @@ export const HeaderComponent = ({
   showBackButton = false,
   showSearchButton = false,
   isSearchHeader = false,
+  hooksToSet = () => {},
 }) => {
   return (
     <View style={styles.headerContainer}>
@@ -66,7 +67,7 @@ export const HeaderComponent = ({
         <View style={styles.serachBarContainer}>
           <TextInput
             onChangeText={event => {
-              console.log('teste', event);
+              hooksToSet(event);
             }}
             style={styles.searchInputStyle}
             autoFocus

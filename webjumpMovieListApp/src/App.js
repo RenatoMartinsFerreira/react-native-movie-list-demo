@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import {Text, View, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
@@ -63,20 +63,29 @@ function movieDetailStack({route, navigation}) {
             header: false,
             headerShown: false,
           }}
-          name="movieDetailScene"
-          component={nav => (
-            <MovieDetailScene navigator={nav} movie={route.params.item.movie} />
+          name="movieDetailScene">
+          {() => (
+            <MovieDetailScene
+              navigator={navigation}
+              movie={route.params.item.movie}
+            />
           )}
-        />
+        </Stack.Screen>
       </Stack.Navigator>
     </View>
   );
 }
 
 function searchSceneStack({route, navigation}) {
+  const [search, setSearch] = useState('');
   return (
     <View style={styles.sceneContainer}>
-      <HeaderComponent navigation={navigation} showBackButton isSearchHeader />
+      <HeaderComponent
+        navigation={navigation}
+        showBackButton
+        isSearchHeader
+        hooksToSet={setSearch}
+      />
       <Stack.Navigator
         tabBarOptions={{
           labelStyle: {fontSize: fontScale(18)},
@@ -89,9 +98,9 @@ function searchSceneStack({route, navigation}) {
             header: false,
             headerShown: false,
           }}
-          name="searchScene"
-          component={nav => <SearchScene navigator={nav} />}
-        />
+          name="searchScene">
+          {() => <SearchScene navigator={navigation} searchText={search} />}
+        </Stack.Screen>
       </Stack.Navigator>
     </View>
   );

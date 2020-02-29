@@ -17,6 +17,7 @@ class SeacrhScene extends Component {
     this.state = {
       loading: true,
       myMovies: [],
+      onUpdate: false,
     };
     this.movieListModel = new MovieListModel();
   }
@@ -35,40 +36,31 @@ class SeacrhScene extends Component {
   };
 
   componentDidMount() {
-    // this.getMyMoviesData();
+    this.setState({onUpdate: false});
+  }
+
+  componentDidUpdate(up) {
+    up.searchText !== this.props.searchText &&
+      !this.state.onUpdate &&
+      this.setState({onUpdate: true}, () =>
+        setTimeout(() => {
+          console.log('Executar requisição', this.props.searchText);
+          this.setState({onUpdate: false});
+        }, 3000),
+      );
   }
 
   render() {
     return (
       <>
-        <SafeAreaView style={styles.container}>
-          {this.state.myMovies.length > 0 ? (
-            <FlatList
-              style={{flex: 1}}
-              data={this.state.myMovies}
-              extraData={this.state.myMovies}
-              renderItem={({item}) => (
-                <MovieItemComponent
-                  movie={item}
-                  onMoviePress={() => {
-                    this.props.navigator.navigation.navigate('movieDetail', {
-                      item,
-                    });
-                  }}
-                />
-              )}
-              ItemSeparatorComponent={() => (
-                <View style={styles.listSeparator} />
-              )}
-            />
-          ) : (
+        {this.props.searchText == '' ? (
+          <SafeAreaView style={styles.container}>
             <View style={styles.loadingContainer}>
               <Icon
                 name="search"
                 size={fontScale(150)}
                 color={colors.awesomeRed}
               />
-
               <GenericTextComponent
                 styleguideItem={GenericTextComponentStyleguideItem.HEADING}
                 text={'Busque por filmes \n para salvá-los em sua lista'}
@@ -76,8 +68,12 @@ class SeacrhScene extends Component {
                 color={colors.awesomeRed}
               />
             </View>
-          )}
-        </SafeAreaView>
+          </SafeAreaView>
+        ) : (
+          <View>
+            <Text> {this.props.searchText} </Text>
+          </View>
+        )}
       </>
     );
   }
