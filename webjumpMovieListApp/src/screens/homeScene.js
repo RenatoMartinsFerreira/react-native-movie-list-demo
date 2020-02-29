@@ -74,7 +74,7 @@ class HomeScene extends Component {
               <MovieItemComponent
                 movie={item.movie}
                 onMoviePress={() => {
-                  this.props.navigator.navigation.navigate('movieDetail', {
+                  this.props.navigator.navigation.navigate('movieDetailStack', {
                     item,
                   });
                 }}

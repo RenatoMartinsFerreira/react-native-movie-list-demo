@@ -1,11 +1,16 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import {Text, View, SafeAreaView, StatusBar, StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import colors from 'webjumpMovieListApp/src/commons/colors';
 import {createStackNavigator} from '@react-navigation/stack';
 import {fontScale} from 'webjumpMovieListApp/src/commons/scaling';
-import {HomeScene, MyMoviesScene, MovieDetailScene} from './screens';
+import {
+  HomeScene,
+  MyMoviesScene,
+  MovieDetailScene,
+  SearchScene,
+} from './screens';
 
 import {HeaderComponent} from 'webjumpMovieListApp/src/components/presentation';
 
@@ -15,7 +20,7 @@ const Stack = createStackNavigator();
 function Home({route, navigation}) {
   return (
     <View style={styles.sceneContainer}>
-      <HeaderComponent navigation={navigation} />
+      <HeaderComponent navigation={navigation} showSearchButton />
       <Tab.Navigator
         tabBarOptions={{
           labelStyle: {fontSize: 18},
@@ -42,7 +47,7 @@ function Home({route, navigation}) {
   );
 }
 
-function movieDetail({route, navigation}) {
+function movieDetailStack({route, navigation}) {
   return (
     <View style={styles.sceneContainer}>
       <HeaderComponent navigation={navigation} showBackButton />
@@ -58,11 +63,44 @@ function movieDetail({route, navigation}) {
             header: false,
             headerShown: false,
           }}
-          name="Tendências"
-          component={nav => (
-            <MovieDetailScene navigator={nav} movie={route.params.item.movie} />
+          name="movieDetailScene">
+          {() => (
+            <MovieDetailScene
+              navigator={navigation}
+              movie={route.params.item.movie}
+            />
           )}
-        />
+        </Stack.Screen>
+      </Stack.Navigator>
+    </View>
+  );
+}
+
+function searchSceneStack({route, navigation}) {
+  const [search, setSearch] = useState('');
+  return (
+    <View style={styles.sceneContainer}>
+      <HeaderComponent
+        navigation={navigation}
+        showBackButton
+        isSearchHeader
+        hooksToSet={setSearch}
+      />
+      <Stack.Navigator
+        tabBarOptions={{
+          labelStyle: {fontSize: fontScale(18)},
+          style: {backgroundColor: colors.awesomeRed},
+          activeTintColor: 'white',
+          indicatorStyle: {backgroundColor: 'white'},
+        }}>
+        <Stack.Screen
+          options={{
+            header: false,
+            headerShown: false,
+          }}
+          name="searchScene">
+          {() => <SearchScene navigator={navigation} searchText={search} />}
+        </Stack.Screen>
       </Stack.Navigator>
     </View>
   );
@@ -91,8 +129,17 @@ export default function App(route, navigation) {
                 header: false,
                 headerShown: false,
               }}
-              name="movieDetail"
-              component={movieDetail}
+              name="movieDetailStack"
+              component={movieDetailStack}
+            />
+
+            <Stack.Screen
+              options={{
+                header: false,
+                headerShown: false,
+              }}
+              name="searchSceneStack"
+              component={searchSceneStack}
             />
           </Stack.Navigator>
         </SafeAreaView>

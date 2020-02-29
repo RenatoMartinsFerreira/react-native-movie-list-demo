@@ -24,34 +24,62 @@ export default class MovieListModel {
   }
   setMovies = offset => {
     return new Promise((resolve, reject) => {
-      this.traktService.trendingList(offset).then(response => {
-        // resolve(new MovieListModel(this.type, response.data[0].movies)),
-        const newMovieListModel = new MovieListModel(
-          this.type,
-          response.data,
-          offset,
-        );
-        for (const key in newMovieListModel.movies) {
-          if (newMovieListModel.movies.hasOwnProperty(key)) {
-            const element = newMovieListModel.movies[key];
-            this.tmdbService
-              .movieData(element.movie.ids.tmdb)
-              .then(tmdbData => {
-                newMovieListModel.movies[key].movie.uri =
-                  tmdbData.data.poster_path;
-                newMovieListModel.movies[key].movie.description =
-                  tmdbData.data.overview;
-                newMovieListModel.movies[key].movie.link =
-                  tmdbData.data.homepage;
+      this.traktService
+        .trendingList(offset)
+        .then(response => {
+          const newMovieListModel = new MovieListModel(
+            this.type,
+            response.data,
+            offset,
+          );
+          this.getTmdbData(newMovieListModel)
+            .then(res => resolve(res))
+            .catch(e => reject(e));
+        })
+        .catch(e => reject(e));
+    });
+  };
 
-                newMovieListModel.movies.length - 1 == key &&
-                  resolve(
-                    new MovieListModel(this.type, newMovieListModel.movies),
-                  );
-              });
-          }
+  getTmdbData = movieListModel => {
+    return new Promise((resolve, reject) => {
+      for (const key in movieListModel.movies) {
+        if (movieListModel.movies.hasOwnProperty(key)) {
+          const element = movieListModel.movies[key];
+          this.tmdbService
+            .movieData(
+              element.movie.ids.tmdb
+                ? element.movie.ids.tmdb
+                : element.movie.ids.imdb,
+            )
+            .then(tmdbData => {
+              movieListModel.movies[key].movie.uri = tmdbData.data.poster_path;
+              movieListModel.movies[key].movie.description =
+                tmdbData.data.overview;
+              movieListModel.movies[key].movie.link = tmdbData.data.homepage;
+              movieListModel.movies.length - 1 == key &&
+                resolve(new MovieListModel(this.type, movieListModel.movies));
+            })
+            .catch(e => reject(e));
         }
-      });
+      }
+    });
+  };
+
+  searchMovieList = searchText => {
+    return new Promise((resolve, reject) => {
+      this.traktService
+        .searchList(searchText)
+        .then(response => {
+          const newMovieListModel = new MovieListModel(
+            this.type,
+            response.data,
+            1,
+          );
+          this.getTmdbData(newMovieListModel).then(richMovieDetail => {
+            resolve(richMovieDetail.movies);
+          });
+        })
+        .catch(e => reject(e));
     });
   };
 
