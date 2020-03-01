@@ -75,22 +75,25 @@ export default class MovieListModel {
     });
   };
 
-  addMovieOnStore = (movieModel = new MovieModel()) => {
+  onFavoriteClick = (movieModel = new MovieModel()) => {
     const storeArray = Store.getState().movieListReducer;
-    storeArray.movieList.push(movieModel);
-    Store.dispatch(saveMovieList(storeArray));
-  };
-
-  removeMovieFromStore = (movieModel = new MovieModel()) => {
-    const storeArray = Store.getState().movieListReducer;
-    storeArray.movieList.pop(storeArray.movieList.indexOf(movieModel));
-    Store.dispatch(saveMovieList(storeArray));
+    const indexProps = storeArray.movieList.findIndex(
+      i => i.ids.tmdb === movieModel.ids.tmdb,
+    );
+    if (indexProps === -1) {
+      storeArray.movieList.push(movieModel);
+      Store.dispatch(saveMovieList(storeArray));
+    } else {
+      storeArray.movieList.splice(indexProps, 1);
+      Store.dispatch(saveMovieList(storeArray));
+    }
   };
 
   isFavorite = (movieModel = new MovieModel()) => {
     const storeArray = Store.getState().movieListReducer;
-    const number = storeArray.movieList.indexOf(movieModel);
-    console.log('number', number);
-    return number;
+    const indexProps = storeArray.movieList.findIndex(
+      i => i.ids.tmdb === movieModel.ids.tmdb,
+    );
+    return indexProps > -1;
   };
 }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {Component} from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 import PropTypes from 'prop-types';
 import {
@@ -17,92 +17,104 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import MovieListModel from 'webjumpMovieListApp/src/models/movieListModel';
 import MovieModel from 'webjumpMovieListApp/src/models/movieModel';
 
-export const MovieItemComponent = ({movie, onMoviePress = () => {}}) => {
-  const [favorite, setFavorite] = useState(false);
-  const movieListModel = new MovieListModel();
-  return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        onPress={() => {
-          onMoviePress();
-        }}>
-        {movie.uri ? (
-          <Image
-            style={styles.bannerContainer}
-            source={{
-              uri: movie.uri
-                ? `https://image.tmdb.org/t/p/w500/${movie.uri}`
-                : 'https://image.tmdb.org/t/p/w500/vllvystwQjmXzy5OvBKnGl1JREF.jpg',
-            }}
-          />
-        ) : (
-          <View style={[styles.bannerContainer, styles.bannerIconContainer]}>
-            <Icon
-              name="trakt-icon-red"
-              size={fontScale(60)}
-              color={colors.awesomeRed}
+export class MovieItemComponent extends Component {
+  constructor(props) {
+    super({...props});
+    this.state = {
+      favorite: false,
+    };
+
+    this.movieListModel = new MovieListModel();
+
+    this.setIcon = movie => {
+      const movieListModel = new MovieListModel();
+      const newMovieModel = new MovieModel(movie);
+      return !movieListModel.isFavorite(newMovieModel)
+        ? 'favorite-border'
+        : 'favorite';
+    };
+
+    this.onIconPress = (favorite, movie) => {
+      const movieListModel = new MovieListModel();
+      const movieModel = new MovieModel(movie);
+      movieListModel.onFavoriteClick(movieModel);
+    };
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => {
+            this.props.onMoviePress();
+          }}>
+          {this.props.movie.uri ? (
+            <Image
+              style={styles.bannerContainer}
+              source={{
+                uri: this.props.movie.uri
+                  ? `https://image.tmdb.org/t/p/w500/${this.props.movie.uri}`
+                  : 'https://image.tmdb.org/t/p/w500/vllvystwQjmXzy5OvBKnGl1JREF.jpg',
+              }}
             />
-          </View>
-        )}
-      </TouchableOpacity>
-      <View style={styles.dataContainer}>
-        <View style={styles.topRowContainer}>
-          <View style={styles.titleContainer}>
+          ) : (
+            <View style={[styles.bannerContainer, styles.bannerIconContainer]}>
+              <Icon
+                name="trakt-icon-red"
+                size={fontScale(60)}
+                color={colors.awesomeRed}
+              />
+            </View>
+          )}
+        </TouchableOpacity>
+        <View style={styles.dataContainer}>
+          <View style={styles.topRowContainer}>
+            <View style={styles.titleContainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.props.onMoviePress();
+                }}>
+                <GenericTextComponent
+                  styleguideItem={GenericTextComponentStyleguideItem.HEADING}
+                  color={colors.redishBlack}
+                  text={this.props.movie.title}
+                />
+
+                <GenericTextComponent
+                  styleguideItem={GenericTextComponentStyleguideItem.TINY}
+                  color={colors.redishOpaqueBlack}
+                  text={`${this.props.movie.year}`}
+                />
+              </TouchableOpacity>
+            </View>
+
             <TouchableOpacity
               onPress={() => {
-                onMoviePress();
-              }}>
-              <GenericTextComponent
-                styleguideItem={GenericTextComponentStyleguideItem.HEADING}
-                color={colors.redishBlack}
-                text={movie.title}
-              />
-
-              <GenericTextComponent
-                styleguideItem={GenericTextComponentStyleguideItem.TINY}
-                color={colors.redishOpaqueBlack}
-                text={`${movie.year}`}
+                this.setState({favorite: !this.state.favorite});
+                this.onIconPress(this.state.favorite, this.props.movie);
+              }}
+              style={styles.iconContainer}>
+              <Icon
+                name={this.setIcon(this.props.movie)}
+                size={fontScale(30)}
+                color={colors.awesomeRed}
               />
             </TouchableOpacity>
           </View>
-
-          <TouchableOpacity
-            onPress={() => {
-              setFavorite(!favorite);
-              onIconPress(favorite, movie);
-            }}
-            style={styles.iconContainer}>
-            <Icon
-              name={!favorite ? 'favorite-border' : 'favorite'}
-              size={fontScale(30)}
-              color={colors.awesomeRed}
+          <View style={styles.descriptionContainer}>
+            <GenericTextComponent
+              styleguideItem={GenericTextComponentStyleguideItem.BODY}
+              text={this.props.movie.description}
+              color={colors.redishBlack}
+              numberOfLines={5}
+              ellipsizeMode="tail"
             />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.descriptionContainer}>
-          <GenericTextComponent
-            styleguideItem={GenericTextComponentStyleguideItem.BODY}
-            text={movie.description}
-            color={colors.redishBlack}
-            numberOfLines={5}
-            ellipsizeMode="tail"
-          />
+          </View>
         </View>
       </View>
-    </View>
-  );
-};
-
-const onIconPress = (favorite, movie) => {
-  console.log('onPress item', movie);
-
-  const movieListModel = new MovieListModel();
-  const movieModel = new MovieModel(movie);
-
-  !favorite
-    ? movieListModel.addMovieOnStore(movieModel)
-    : movieListModel.removeMovieFromStore(movieModel);
-};
+    );
+  }
+}
 
 MovieItemComponent.defaultProps = {
   editText: null,
