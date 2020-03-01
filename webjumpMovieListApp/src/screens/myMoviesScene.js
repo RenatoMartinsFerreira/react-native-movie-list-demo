@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {SafeAreaView, StyleSheet, FlatList, View, Text} from 'react-native';
-import MovieListModel from 'webjumpMovieListApp/src/models/movieListModel';
+import {SafeAreaView, StyleSheet, FlatList, View} from 'react-native';
 import colors from 'webjumpMovieListApp/src/commons/colors';
 import Icon from 'webjumpMovieListApp/src/commons/icon';
 import {fontScale} from 'webjumpMovieListApp/src/commons/scaling';
@@ -9,7 +8,7 @@ import {
   GenericTextComponentStyleguideItem,
 } from 'webjumpMovieListApp/src/components/presentation';
 import {MovieItemComponent} from 'webjumpMovieListApp/src/components/container';
-import AsyncStorage from '@react-native-community/async-storage';
+import MovieListModel from 'webjumpMovieListApp/src/models/movieListModel';
 
 class MyMoviesScene extends Component {
   constructor(props) {
@@ -21,38 +20,21 @@ class MyMoviesScene extends Component {
     this.movieListModel = new MovieListModel();
   }
 
-  getMyMoviesData = async () => {
-    try {
-      const value = await AsyncStorage.getItem('@myMovies');
-      if (value !== null) {
-        // value previously stored
-        const movieList = JSON.parse(value);
-        this.setState({myMovies: [movieList]});
-      }
-    } catch (e) {
-      // error reading value
-    }
-  };
-
-  componentDidMount() {
-    // this.getMyMoviesData();
-  }
-
   render() {
     return (
       <>
         <SafeAreaView style={styles.container}>
-          {this.state.myMovies.length > 0 ? (
+          {this.movieListModel.movies.length > 0 ? (
             <FlatList
               style={{flex: 1}}
-              data={this.state.myMovies}
-              extraData={this.state.myMovies}
+              data={this.movieListModel.movies}
+              extraData={this.movieListModel.movies}
               renderItem={({item}) => (
                 <MovieItemComponent
                   movie={item}
                   onMoviePress={() => {
-                    this.props.navigator.navigation.navigate('movieDetail', {
-                      item,
+                    this.props.navigator.navigate('movieDetailStack', {
+                      item: {movie: item},
                     });
                   }}
                 />

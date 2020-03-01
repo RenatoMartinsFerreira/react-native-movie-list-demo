@@ -6,9 +6,9 @@ import {saveMovieList} from 'webjumpMovieListApp/src/redux/actions';
 import MovieModel from 'webjumpMovieListApp/src/models/movieModel';
 
 export default class MovieListModel {
-  constructor(movies = [], offset = 1) {
+  constructor(movies, offset = 1) {
     const movieListData = Store.getState().movieListReducer;
-    this.movies = movies || movieListData.movies;
+    this.movies = movies || movieListData.movieList;
     this.offset = offset;
     this.tmdbService = new TmdbService();
     this.traktService = new TraktService();

@@ -5,6 +5,7 @@ export default class MovieModel {
     this.year = movieModel.year || 0;
     this.description = movieModel.description || '';
     this.uri = movieModel.uri || '';
+    this.link = movieModel.link || '';
     this.ids = movieModel.ids || {
       trakt: movieModel.trakt || 0,
       slug: movieModel.slug || '',
