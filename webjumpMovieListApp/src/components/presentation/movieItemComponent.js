@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 import PropTypes from 'prop-types';
 import {
@@ -32,6 +32,7 @@ export const MovieItemComponent = ({
     storeData(movie);
   },
 }) => {
+  const [favorite, setFavorite] = useState(false);
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -80,11 +81,12 @@ export const MovieItemComponent = ({
 
           <TouchableOpacity
             onPress={() => {
+              setFavorite(!favorite);
               onIconPress();
             }}
             style={styles.iconContainer}>
             <Icon
-              name="favorite-border"
+              name={!favorite ? 'favorite-border' : 'favorite'}
               size={fontScale(30)}
               color={colors.awesomeRed}
             />
