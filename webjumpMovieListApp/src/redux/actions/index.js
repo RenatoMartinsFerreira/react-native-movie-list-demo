@@ -1,1 +1,1 @@
-export * from 'webjumpMovieListApp/src/actions/movieListAction';
+export * from 'webjumpMovieListApp/src/redux/actions/movieListAction';

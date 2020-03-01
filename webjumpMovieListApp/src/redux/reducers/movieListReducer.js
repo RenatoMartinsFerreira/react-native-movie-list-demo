@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const INITIAL_STATE = {
-  movies: [],
+  movieList: [],
 };
 
 export default (state = INITIAL_STATE, action) => {

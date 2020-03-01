@@ -14,7 +14,7 @@ import {
   GenericTextComponent,
   GenericTextComponentStyleguideItem,
 } from 'webjumpMovieListApp/src/components/presentation';
-import {MovieItemComponent} from 'webjumpMovieListApp/src/components/presentation';
+import {MovieItemComponent} from 'webjumpMovieListApp/src/components/container';
 
 class SeacrhScene extends Component {
   constructor(props) {

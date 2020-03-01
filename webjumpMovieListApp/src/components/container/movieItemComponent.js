@@ -12,27 +12,14 @@ import {
   GenericTextComponentStyleguideItem,
 } from 'webjumpMovieListApp/src/components/presentation';
 import Icon from 'webjumpMovieListApp/src/commons/icon';
-
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-import AsyncStorage from '@react-native-community/async-storage';
+import MovieListModel from 'webjumpMovieListApp/src/models/movieListModel';
+import MovieModel from 'webjumpMovieListApp/src/models/movieModel';
 
-const storeData = async movie => {
-  try {
-    await AsyncStorage.setItem('@myMovies', JSON.stringify(movie));
-  } catch (e) {
-    // saving error
-  }
-};
-
-export const MovieItemComponent = ({
-  movie,
-  onMoviePress = () => {},
-  onIconPress = () => {
-    storeData(movie);
-  },
-}) => {
+export const MovieItemComponent = ({movie, onMoviePress = () => {}}) => {
   const [favorite, setFavorite] = useState(false);
+  const movieListModel = new MovieListModel();
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -82,7 +69,7 @@ export const MovieItemComponent = ({
           <TouchableOpacity
             onPress={() => {
               setFavorite(!favorite);
-              onIconPress();
+              onIconPress(favorite, movie);
             }}
             style={styles.iconContainer}>
             <Icon
@@ -104,6 +91,17 @@ export const MovieItemComponent = ({
       </View>
     </View>
   );
+};
+
+const onIconPress = (favorite, movie) => {
+  console.log('onPress item', movie);
+
+  const movieListModel = new MovieListModel();
+  const movieModel = new MovieModel(movie);
+
+  !favorite
+    ? movieListModel.addMovieOnStore(movieModel)
+    : movieListModel.removeMovieFromStore(movieModel);
 };
 
 MovieItemComponent.defaultProps = {

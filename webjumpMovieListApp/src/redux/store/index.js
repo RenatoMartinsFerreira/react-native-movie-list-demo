@@ -1,9 +1,9 @@
 import {createStore, applyMiddleware} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
-import promise from 'redux-promise-middleware';
+import thunk from 'redux-thunk';
 import Reducers from '../reducers';
 
 export default createStore(
   Reducers,
-  composeWithDevTools(applyMiddleware(promise)),
+  composeWithDevTools(applyMiddleware(thunk)),
 );

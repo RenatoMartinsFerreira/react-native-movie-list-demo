@@ -1,7 +1,4 @@
 export {
-  MovieItemComponent,
-} from 'webjumpMovieListApp/src/components/presentation/movieItemComponent';
-export {
   GenericTextComponent,
 } from 'webjumpMovieListApp/src/components/presentation/genericTextComponent';
 export {

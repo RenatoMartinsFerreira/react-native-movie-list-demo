@@ -8,7 +8,7 @@ import {
   GenericTextComponent,
   GenericTextComponentStyleguideItem,
 } from 'webjumpMovieListApp/src/components/presentation';
-import {MovieItemComponent} from 'webjumpMovieListApp/src/components/presentation';
+import {MovieItemComponent} from 'webjumpMovieListApp/src/components/container';
 import AsyncStorage from '@react-native-community/async-storage';
 
 class MyMoviesScene extends Component {

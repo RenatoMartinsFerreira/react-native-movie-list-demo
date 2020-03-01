@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {SafeAreaView, View, StyleSheet, ActivityIndicator} from 'react-native';
 import MovieListModel from 'webjumpMovieListApp/src/models/movieListModel';
-import {MovieItemComponent} from 'webjumpMovieListApp/src/components/presentation';
+import {MovieItemComponent} from 'webjumpMovieListApp/src/components/container';
 import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import {
   GenericTextComponent,
@@ -24,7 +24,7 @@ class HomeScene extends Component {
       movies: [],
     };
 
-    this.movieListModel = new MovieListModel(MovieListModel.TYPE.TRENDING);
+    this.movieListModel = new MovieListModel();
   }
 
   componentDidMount() {
@@ -74,7 +74,7 @@ class HomeScene extends Component {
               <MovieItemComponent
                 movie={item.movie}
                 onMoviePress={() => {
-                  this.props.navigator.navigation.navigate('movieDetailStack', {
+                  this.props.navigator.navigate('movieDetailStack', {
                     item,
                   });
                 }}

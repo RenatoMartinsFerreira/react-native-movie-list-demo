@@ -1,23 +1,14 @@
-import Store from 'webjumpMovieListApp/src/redux/store';
 import TraktService from 'webjumpMovieListApp/src/services/traktService';
 import TmdbService from 'webjumpMovieListApp/src/services/tmdbService';
+import Store from 'webjumpMovieListApp/src/redux/store';
+import {saveMovieList} from 'webjumpMovieListApp/src/redux/actions';
 
-const TYPE = [
-  {
-    TRENDING: 'TRENDING',
-    MYMOVIES: 'MYMOVIES',
-    DEFALT: 'DEFALT',
-  },
-];
+import MovieModel from 'webjumpMovieListApp/src/models/movieModel';
+
 export default class MovieListModel {
-  static getMovieListDS = () => {};
-
-  static saveMovieList = (movieListData, saveOnDS = true) => {};
-
-  constructor(type = MovieListModel.TYPE.DEFALT, movies = [], offset = 1) {
+  constructor(movies = [], offset = 1) {
     const movieListData = Store.getState().movieListReducer;
     this.movies = movies || movieListData.movies;
-    this.type = type;
     this.offset = offset;
     this.tmdbService = new TmdbService();
     this.traktService = new TraktService();
@@ -27,11 +18,7 @@ export default class MovieListModel {
       this.traktService
         .trendingList(offset)
         .then(response => {
-          const newMovieListModel = new MovieListModel(
-            this.type,
-            response.data,
-            offset,
-          );
+          const newMovieListModel = new MovieListModel(response.data, offset);
           this.getTmdbData(newMovieListModel)
             .then(res => resolve(res))
             .catch(e => reject(e));
@@ -57,7 +44,7 @@ export default class MovieListModel {
                 tmdbData.data.overview;
               movieListModel.movies[key].movie.link = tmdbData.data.homepage;
               movieListModel.movies.length - 1 == key &&
-                resolve(new MovieListModel(this.type, movieListModel.movies));
+                resolve(new MovieListModel(movieListModel.movies));
             })
             .catch(e => reject(e));
         }
@@ -70,11 +57,7 @@ export default class MovieListModel {
       this.traktService
         .searchList(searchText)
         .then(response => {
-          const newMovieListModel = new MovieListModel(
-            this.type,
-            response.data,
-            1,
-          );
+          const newMovieListModel = new MovieListModel(response.data, 1);
           this.getTmdbData(newMovieListModel).then(richMovieDetail => {
             resolve(richMovieDetail.movies);
           });
@@ -91,6 +74,23 @@ export default class MovieListModel {
       });
     });
   };
-}
 
-MovieListModel.TYPE = TYPE;
+  addMovieOnStore = (movieModel = new MovieModel()) => {
+    const storeArray = Store.getState().movieListReducer;
+    storeArray.movieList.push(movieModel);
+    Store.dispatch(saveMovieList(storeArray));
+  };
+
+  removeMovieFromStore = (movieModel = new MovieModel()) => {
+    const storeArray = Store.getState().movieListReducer;
+    storeArray.movieList.pop(storeArray.movieList.indexOf(movieModel));
+    Store.dispatch(saveMovieList(storeArray));
+  };
+
+  isFavorite = (movieModel = new MovieModel()) => {
+    const storeArray = Store.getState().movieListReducer;
+    const number = storeArray.movieList.indexOf(movieModel);
+    console.log('number', number);
+    return number;
+  };
+}
