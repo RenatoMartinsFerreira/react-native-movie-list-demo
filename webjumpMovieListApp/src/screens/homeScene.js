@@ -29,8 +29,7 @@ class HomeScene extends Component {
       loadingButton: false,
       movies: [],
     };
-
-    this.movieListModel = new MovieListModel();
+    this.movieListModel = new MovieListModel(null, null, this.props.dispatch);
   }
 
   componentDidMount() {
@@ -79,6 +78,7 @@ class HomeScene extends Component {
             renderItem={({item}) => (
               <MovieItemComponent
                 movie={item.movie}
+                dispatcher={this.props.dispatch}
                 onMoviePress={() => {
                   this.props.navigator.navigate('movieDetailStack', {
                     item,

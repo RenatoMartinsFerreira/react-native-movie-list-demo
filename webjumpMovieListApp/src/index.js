@@ -10,13 +10,20 @@ import {
   MovieDetailScene,
   SearchScene,
 } from './screens';
+import MovieModel from 'webjumpMovieListApp/src/models/movieModel';
 
 import {HeaderComponent} from 'webjumpMovieListApp/src/components/presentation';
 
 const Tab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
-const homeStack = function({route, navigation, store, dispatch}) {
+const homeStack = function({
+  movieFavoriteList,
+  route,
+  navigation,
+  store,
+  dispatch,
+}) {
   return (
     <View style={styles.sceneContainer}>
       <HeaderComponent navigation={navigation} showSearchButton />
@@ -32,7 +39,7 @@ const homeStack = function({route, navigation, store, dispatch}) {
           options={{
             tabBarLabel: () => <Text style={styles.tabText}>Tendências</Text>,
           }}>
-          {() => <HomeScene navigator={navigation} />}
+          {() => <HomeScene navigator={navigation} dispatch={dispatch} />}
         </Tab.Screen>
         <Tab.Screen
           name="MeusFilmes"

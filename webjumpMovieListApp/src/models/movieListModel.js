@@ -1,17 +1,18 @@
 import TraktService from 'webjumpMovieListApp/src/services/traktService';
 import TmdbService from 'webjumpMovieListApp/src/services/tmdbService';
-import Store from 'webjumpMovieListApp/src/redux/store';
+import {store} from 'webjumpMovieListApp/src/redux/store';
 import {saveMovieList} from 'webjumpMovieListApp/src/redux/actions';
 
 import MovieModel from 'webjumpMovieListApp/src/models/movieModel';
 
 export default class MovieListModel {
-  constructor(movies, offset = 1) {
-    const movieListData = Store.getState().movieListReducer;
+  constructor(movies, offset = 1, dispatcher) {
+    const movieListData = store.getState().movieListReducer;
     this.movies = movies || movieListData.movieList;
     this.offset = offset;
     this.tmdbService = new TmdbService();
     this.traktService = new TraktService();
+    this.dispatcher = dispatcher || store.dispatch;
   }
   setMovies = offset => {
     return new Promise((resolve, reject) => {
@@ -76,21 +77,21 @@ export default class MovieListModel {
   };
 
   onFavoriteClick = (movieModel = new MovieModel()) => {
-    const storeArray = Store.getState().movieListReducer;
+    const storeArray = store.getState().movieListReducer;
     const indexProps = storeArray.movieList.findIndex(
       i => i.ids.tmdb === movieModel.ids.tmdb,
     );
     if (indexProps === -1) {
       storeArray.movieList.push(movieModel);
-      Store.dispatch(saveMovieList(storeArray));
+      this.dispatcher(saveMovieList({movieList: storeArray.movieList}));
     } else {
       storeArray.movieList.splice(indexProps, 1);
-      Store.dispatch(saveMovieList(storeArray));
+      this.dispatcher(saveMovieList({movieList: storeArray.movieList}));
     }
   };
 
   isFavorite = (movieModel = new MovieModel()) => {
-    const storeArray = Store.getState().movieListReducer;
+    const storeArray = store.getState().movieListReducer;
     const indexProps = storeArray.movieList.findIndex(
       i => i.ids.tmdb === movieModel.ids.tmdb,
     );

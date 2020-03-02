@@ -9,6 +9,6 @@ export default (state = INITIAL_STATE, action) => {
     case actionTypes.MOVIE_LIST_SAVE_MODEL:
       return action.payload;
     default:
-      return {...state};
+      return state;
   }
 };

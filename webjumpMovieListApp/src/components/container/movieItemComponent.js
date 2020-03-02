@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet, Image, Button} from 'react-native';
 import PropTypes from 'prop-types';
 import {
   horizontalScale,
@@ -24,10 +24,15 @@ export class MovieItemComponent extends Component {
       favorite: false,
     };
 
-    this.movieListModel = new MovieListModel();
+
+    this.movieListModel = new MovieListModel(null, null, this.props.dispatcher);
 
     this.setIcon = movie => {
-      const movieListModel = new MovieListModel();
+      const movieListModel = new MovieListModel(
+        null,
+        null,
+        this.props.dispatcher,
+      );
       const newMovieModel = new MovieModel(movie);
       return !movieListModel.isFavorite(newMovieModel)
         ? 'favorite-border'
@@ -35,7 +40,11 @@ export class MovieItemComponent extends Component {
     };
 
     this.onIconPress = (favorite, movie) => {
-      const movieListModel = new MovieListModel();
+      const movieListModel = new MovieListModel(
+        null,
+        null,
+        this.props.dispatcher,
+      );
       const movieModel = new MovieModel(movie);
       movieListModel.onFavoriteClick(movieModel);
     };
