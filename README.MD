@@ -2,6 +2,19 @@
 
  Projeto desenvolvido para pleitear vaga de desenvolvedor React Native.
 
+## Preparação do ambiente
+Para o funcionamento da aplicação é necessário informar o client ID do Trakt API e a API Key do TMDB no arquivo ```webjumpMovieListApp/.env```
+
+```bash
+TRAKT_API_KEY=[YOUR_TRAKT_CLIENT_ID]
+TMDB_API_KEY=[YOUR_TMDB_API_KEY_V3]
+```
+Mais informações
+
+Trakt: https://trakt.tv/oauth/applications/new
+
+TMDB: https://www.themoviedb.org/settings/api
+
 ## Instalação
 
  Instalação via yarn.
