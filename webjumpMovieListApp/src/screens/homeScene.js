@@ -33,7 +33,7 @@ class HomeScene extends Component {
   }
 
   componentDidMount() {
-    this.movieListModel.setMovies().then(treandMovieList => {
+    this.movieListModel.nextPageMovies().then(treandMovieList => {
       this.setState(
         {movies: treandMovieList.movies},
         this.setState({loading: false}),
