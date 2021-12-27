@@ -1,6 +1,6 @@
 # Movie List App
 
- Projeto desenvolvido para pleitear vaga de desenvolvedor React Native.
+ Projeto desenvolvido para pleitear vaga como desenvolvedor React Native.
 
 ## Preparação do ambiente
 Para o funcionamento da aplicação é necessário informar o client ID do Trakt API e a API Key do TMDB no arquivo ```webjumpMovieListApp/.env```
